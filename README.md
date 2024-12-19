@@ -1,13 +1,6 @@
 # ecoNET300 Home Assistant integration
-
-[![Code_formatter](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/ruff/main/assets/badge/v2.json)](https://github.com/astral-sh/ruff)
-[![hacs_badge](https://img.shields.io/badge/HACS-Default-41BDF5.svg)](https://github.com/hacs/integration)
-[![HACS Action](https://github.com/jontofront/ecoNET-300-Home-Assistant-Integration/actions/workflows/hacs.yml/badge.svg)](https://github.com/jontofront/ecoNET-300-Home-Assistant-Integration/actions/workflows/hacs.yml)
-[![stability-alpha](https://img.shields.io/badge/stability-alpha-f4d03f.svg)](https://guidelines.denpa.pro/stability#alpha)
-[![Validate with hassfest](https://github.com/jontofront/ecoNET-300-Home-Assistant-Integration/actions/workflows/hassfest.yaml/badge.svg)](https://github.com/jontofront/ecoNET-300-Home-Assistant-Integration/actions/workflows/hassfest.yaml)
-
-**Note:** This repository is a fork of the original [pblxptr/ecoNET-300-Home-Assistant-Integration](https://github.com/pblxptr/ecoNET-300-Home-Assistant-Integration). Most of the work was done by [@pblxpt](https://github.com/pblxpt), and we are very grateful for their efforts.
-**Additionally, I maintained and supported this code up to version v0.3.3.**
+**Note:** This repository is a fork of the original [pblxptr/ecoNET-300-Home-Assistant-Integration](https://github.com/jontofront/ecoNET-300-Home-Assistant-Integration).
+Most of the work was done by [@pblxpt](https://github.com/pblxpt), and we are very grateful for their efforts.
 
 <div align="center">
 
@@ -18,14 +11,14 @@
 </div>
 
 ## Overview
-he **ecoNET300 Home Assistant Integration** allows local control and monitoring of ecoNET300 devices directly from Home Assistant. It communicates over your local network via the ecoNET300’s native REST API, avoiding any external cloud services.
+he **ecoNET300SOL Home Assistant Integration** allows local control and monitoring of ecoNET300 devices for solar panels directly from Home Assistant. It communicates over your local network via the ecoNET300’s native REST API, avoiding any external cloud services.
 
 - **Local Operation**: No dependency on econet24.com cloud services.
 - **Easy Configuration**: Integrate directly via Home Assistant UI.
 - **Tested With**: ecoMAX810P-L TOUCH controller from [Plum Sp. z o.o.](https://www.plum.pl/)
 
 ## Table of Contents
-1. [ecoNET300 Home Assistant Integration](#econet300-home-assistant-integration)
+1. [ecoNET300SOL Home Assistant Integration](#econet300-home-assistant-integration)
 2. [Overview](#overview)
 3. [Versions](#versions)
    - [Migrating to v1.0.0_beta](#migrating-to-v100_beta)
