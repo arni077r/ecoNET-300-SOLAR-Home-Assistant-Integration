@@ -1,4 +1,4 @@
-# ecoNET300 Home Assistant integration
+# ecoNET300SOL Home Assistant integration
 **Note:** This repository is a fork of the original [jontofront/ecoNET-300-Home-Assistant-Integration](https://github.com/jontofront/ecoNET-300-Home-Assistant-Integration).
 Most of the work was done by [@pblxpt](https://github.com/pblxpt), and we are very grateful for their efforts.
 
