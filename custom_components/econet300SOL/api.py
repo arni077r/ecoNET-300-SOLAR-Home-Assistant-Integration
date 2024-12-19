@@ -1,4 +1,4 @@
-"""Econet300 API class describing methods of getting and setting data."""
+"""Econet300SOL API class describing methods of getting and setting data."""
 
 import asyncio
 from http import HTTPStatus
@@ -124,11 +124,11 @@ class EconetClient:
         return None
 
 
-class Econet300Api:
+class Econet300SOLApi:
     """Client for interacting with the ecoNET-300 API."""
 
     def __init__(self, client: EconetClient, cache: MemCache) -> None:
-        """Initialize the Econet300Api object with a client, cache, and default values for uid, sw_revision, and hw_version."""
+        """Initialize the Econet300SOLApi object with a client, cache, and default values for uid, sw_revision, and hw_version."""
         self._client = client
         self._cache = cache
         self._uid = "default-uid"
@@ -170,7 +170,7 @@ class Econet300Api:
         return self._hw_version
 
     async def init(self):
-        """Econet300 API initialization."""
+        """Econet300SOL API initialization."""
         sys_params = await self.fetch_sys_params()
 
         if sys_params is None:
@@ -205,16 +205,16 @@ class Econet300Api:
             setattr(self, attr_name, sys_params[param_key])
 
     async def set_param(self, param, value) -> bool:
-        """Set param value in Econet300 API."""
+        """Set param value in Econet300SOL API."""
         if param is None:
             _LOGGER.warning(
                 "Requested param set for: '%s' but mapping for this param does not exist",
                 param,
             )
             return False
-
+        _LOGGER.warning("/econet/newParam?newParamName=%s&newParamValue=%s",param,value)
         data = await self._client.get(
-            f"{self.host}/econet/rmCurrNewParam?newParamKey={param}&newParamValue={value}"
+            f"{self.host}/econet/newParam?newParamName={param}&newParamValue={value}"
         )
         if data is None or "result" not in data:
             return False
@@ -262,7 +262,7 @@ class Econet300Api:
         curr_limits = limits[param]
         _LOGGER.debug("Limits '%s'", limits)
         _LOGGER.debug("Limits for edit param '%s': %s", param, curr_limits)
-        return Limits(curr_limits["min"], curr_limits["max"])
+        return Limits(curr_limits["minv"], curr_limits["maxv"])
 
     async def fetch_reg_params_data(self) -> dict[str, Any]:
         """Fetch data from econet/regParamsData."""
@@ -326,7 +326,7 @@ class Econet300Api:
 
 async def make_api(hass: HomeAssistant, cache: MemCache, data: dict):
     """Create api object."""
-    return await Econet300Api.create(
+    return await Econet300SOLApi.create(
         EconetClient(
             data["host"],
             data["username"],

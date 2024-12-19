@@ -1,17 +1,17 @@
 {
-  "domain": "econet300",
-  "name": "ecoNET300",
+  "domain": "econet300SOL",
+  "name": "ecoNET300SOL",
   "codeowners": [
-    "@jontofront"
+    "@arni077r"
   ],
   "config_flow": true,
   "dependencies": [],
-  "documentation": "https://github.com/jontofront/ecoNET-300-Home-Assistant-Integration",
+  "documentation": "https://github.com/arni077r/ecoNET-300-SOLAR-Home-Assistant-Integration",
   "homekit": {},
   "iot_class": "local_polling",
-  "issue_tracker": "https://github.com/jontofront/ecoNET-300-Home-Assistant-Integration/issues",
+  "issue_tracker": "https://github.com/arni077r/ecoNET-300-SOLAR-Home-Assistant-Integration/issues",
   "requirements": [],
   "ssdp": [],
-  "version": "v1.0.11",
+  "version": "v0.1.0",
   "zeroconf": []
 }

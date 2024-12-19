@@ -17,19 +17,19 @@ from homeassistant.const import (
 )
 
 # Constant for the econet Integration integration
-DOMAIN = "econet300"
+DOMAIN = "econet300SOL"
 
 SERVICE_API = "api"
 SERVICE_COORDINATOR = "coordinator"
 
 DEVICE_INFO_MANUFACTURER = "PLUM"
-DEVICE_INFO_MODEL = "ecoNET300"
-DEVICE_INFO_CONTROLLER_NAME = "PLUM ecoNET300"
+DEVICE_INFO_MODEL = "ecoNET300SOL"
+DEVICE_INFO_CONTROLLER_NAME = "PLUM ecoNET300SOL"
 DEVICE_INFO_MIXER_NAME = "Mixer device"
 DEVICE_INFO_LAMBDA_NAME = "Module Lambda"
 
-CONF_ENTRY_TITLE = "ecoNET300"
-CONF_ENTRY_DESCRIPTION = "PLUM Econet300"
+CONF_ENTRY_TITLE = "ecoNET300SOL"
+CONF_ENTRY_DESCRIPTION = "PLUM Econet300SOL"
 
 ## Sys params
 API_SYS_PARAMS_URI = "sysParams"
@@ -43,8 +43,8 @@ API_REG_PARAMS_URI = "regParams"
 API_REG_PARAMS_PARAM_DATA = "curr"
 
 ## Reg params data all in one
-API_REG_PARAMS_DATA_URI = "regParamsData"
-API_REG_PARAMS_DATA_PARAM_DATA = "data"
+API_REG_PARAMS_DATA_URI = "regParams"
+API_REG_PARAMS_DATA_PARAM_DATA = "curr"
 
 # Boiler status keys map
 OPERATION_MODE_NAMES = {
@@ -65,8 +65,8 @@ OPERATION_MODE_NAMES = {
 }
 
 ## Editable params limits
-API_EDIT_PARAM_URI = "rmCurrNewParam"
-API_EDITABLE_PARAMS_LIMITS_URI = "rmCurrentDataParamsEdits"
+API_EDIT_PARAM_URI = "newParam"
+API_EDITABLE_PARAMS_LIMITS_URI = "editParams"
 API_EDITABLE_PARAMS_LIMITS_DATA = "data"
 
 ###################################
@@ -90,6 +90,8 @@ SENSOR_MAP_KEY = {
     "ecoster": {
         "ecoSterTemp1",
         "ecoSterTemp2",
+        "Tryb_pracy",
+        "Sch__kot_em",
     },
     "lambda": {
         "lambdaStatus",
@@ -99,6 +101,11 @@ SENSOR_MAP_KEY = {
     "_default": {
         "boilerPower",
         "boilerPowerKW",
+        "P1",
+        "P2",
+        "T1",
+        "T2",
+        "Tryb_pracy",
         "tempFeeder",
         "fuelLevel",
         "tempCO",
@@ -127,6 +134,9 @@ SENSOR_MAP_KEY = {
 
 BINARY_SENSOR_MAP_KEY = {
     "_default": {
+        "Sch__kot_em",
+        "Sch__nocne",
+        "lighter",
         "lighterWorks",
         "pumpCOWorks",
         "fanWorks",
@@ -140,12 +150,19 @@ BINARY_SENSOR_MAP_KEY = {
 }
 
 NUMBER_MAP = {
+    "Tryb_pracy":"Tryb_pracy",
+    "P1":"P1",
+    "P2":"P2",
+    "Sch__kot_em":"Sch__kot_em",
+    "Sch__nocne":"Sch__nocne",
     "1280": "tempCOSet",
     "1281": "tempCWUSet",
 }
 
 # By default all sensors unit_of_measurement are None
 ENTITY_UNIT_MAP = {
+    "T1": UnitOfTemperature.CELSIUS,
+    "P2":PERCENTAGE,
     "tempCO": UnitOfTemperature.CELSIUS,
     "tempCOSet": UnitOfTemperature.CELSIUS,
     "tempCWUSet": UnitOfTemperature.CELSIUS,
@@ -222,6 +239,7 @@ ENTITY_NUMBER_SENSOR_DEVICE_CLASS_MAP = {
     #       NUMBER SENSORS
     #############################
     "tempCOSet": NumberDeviceClass.TEMPERATURE,
+    "P1": PERCENTAGE,
     "tempCWUSet": NumberDeviceClass.TEMPERATURE,
 }
 
@@ -352,14 +370,17 @@ ENTITY_CATEGORY = {
 ENTITY_MIN_VALUE = {
     "tempCOSet": 27,
     "tempCWUSet": 20,
+    "P1": 0,
 }
 
 ENTITY_MAX_VALUE = {
     "tempCOSet": 68,
     "tempCWUSet": 55,
+    "P1": 100,
 }
 
 ENTITY_STEP = {
     "tempCOSet": 1,
     "tempCWUSet": 1,
+    "P1": 10,
 }

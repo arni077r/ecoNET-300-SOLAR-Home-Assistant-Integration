@@ -6,7 +6,7 @@ from homeassistant.core import callback
 from homeassistant.helpers.entity import DeviceInfo, EntityDescription
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 
-from .api import Econet300Api
+from .api import Econet300SOLApi
 from .common import EconetDataCoordinator
 from .const import (
     DEVICE_INFO_CONTROLLER_NAME,
@@ -23,7 +23,7 @@ _LOGGER = logging.getLogger(__name__)
 class EconetEntity(CoordinatorEntity):
     """Represents EconetEntity."""
 
-    api: Econet300Api
+    api: Econet300SOLApi
     entity_description: EntityDescription
 
     @property
@@ -58,11 +58,9 @@ class EconetEntity(CoordinatorEntity):
         )
 
         value = (
-            self.coordinator.data["sysParams"].get(self.entity_description.key)
+            self.coordinator.data.get("paramsEdits", {}).get(self.entity_description.key)
+            or self.coordinator.data["sysParams"].get(self.entity_description.key)
             or self.coordinator.data["regParams"].get(self.entity_description.key)
-            or self.coordinator.data.get("paramsEdits", {}).get(
-                self.entity_description.key
-            )
         )
 
         if value is None:
@@ -106,9 +104,9 @@ class EconetEntity(CoordinatorEntity):
             sys_params.get(expected_key)
             if sys_params.get(expected_key) is not None
             else (
-                reg_params.get(expected_key)
-                if reg_params.get(expected_key) is not None
-                else params_edits.get(expected_key)
+                params_edits.get(expected_key)
+                if params_edits.get(expected_key) is not None
+                else reg_params.get(expected_key)
             )
         )
 
@@ -136,7 +134,7 @@ class MixerEntity(EconetEntity):
         self,
         description: EntityDescription,
         coordinator: EconetDataCoordinator,
-        api: Econet300Api,
+        api: Econet300SOLApi,
         idx: int,
     ):
         """Initialize the MixerEntity."""
@@ -165,7 +163,7 @@ class LambdaEntity(EconetEntity):
         self,
         description: EntityDescription,
         coordinator: EconetDataCoordinator,
-        api: Econet300Api,
+        api: Econet300SOLApi,
     ):
         super().__init__(description, coordinator, api)
 

@@ -12,7 +12,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .common import Econet300Api, EconetDataCoordinator
+from .common import Econet300SOLApi, EconetDataCoordinator
 from .common_functions import camel_to_snake
 from .const import (
     BINARY_SENSOR_MAP_KEY,
@@ -45,7 +45,7 @@ class EconetBinarySensor(EconetEntity, BinarySensorEntity):
         self,
         entity_description: EconetBinarySensorEntityDescription,
         coordinator: EconetDataCoordinator,
-        api: Econet300Api,
+        api: Econet300SOLApi,
     ):
         """Initialize a new ecoNET binary sensor."""
         self.entity_description = entity_description
@@ -60,9 +60,12 @@ class EconetBinarySensor(EconetEntity, BinarySensorEntity):
 
     def _sync_state(self, value: bool):
         """Sync state."""
-        value = bool(value)
+        
         _LOGGER.debug("EconetBinarySensor _sync_state: %s", value)
-        self._attr_is_on = value
+        if isinstance(value, dict):
+            self._attr_is_on=bool(value.get("value"))
+        else:
+            self._attr_is_on = bool(value)
         _LOGGER.debug(
             "Updated EconetBinarySensor _attr_is_on for %s: %s",
             self.entity_description.key,
@@ -81,10 +84,11 @@ class EconetBinarySensor(EconetEntity, BinarySensorEntity):
 
 
 def create_binary_entity_description(key: str) -> EconetBinarySensorEntityDescription:
-    """Create Econet300 binary entity description."""
+    """Create Econet300SOL binary entity description."""
     _LOGGER.debug("create_binary_entity_description: %s", key)
     entity_description = EconetBinarySensorEntityDescription(
         key=key,
+        name=key,
         translation_key=camel_to_snake(key),
         device_class=ENTITY_BINARY_DEVICE_CLASS_MAP.get(
             key, BinarySensorDeviceClass.RUNNING
@@ -96,7 +100,7 @@ def create_binary_entity_description(key: str) -> EconetBinarySensorEntityDescri
     return entity_description
 
 
-def create_binary_sensors(coordinator: EconetDataCoordinator, api: Econet300Api):
+def create_binary_sensors(coordinator: EconetDataCoordinator, api: Econet300SOLApi):
     """Create binary sensors."""
     entities: list[EconetBinarySensor] = []
     data_regParams = coordinator.data.get("regParams", {})

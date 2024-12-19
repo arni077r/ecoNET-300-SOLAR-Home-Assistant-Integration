@@ -1,4 +1,4 @@
-"""Sensor for Econet300."""
+"""Sensor for Econet300SOL."""
 
 from collections.abc import Callable
 from dataclasses import dataclass
@@ -14,7 +14,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .common import Econet300Api, EconetDataCoordinator
+from .common import Econet300SOLApi, EconetDataCoordinator
 from .common_functions import camel_to_snake
 from .const import (
     DOMAIN,
@@ -51,7 +51,7 @@ class EconetSensor(EconetEntity, SensorEntity):
         self,
         entity_description: EconetSensorEntityDescription,
         coordinator: EconetDataCoordinator,
-        api: Econet300Api,
+        api: Econet300SOLApi,
     ):
         """Initialize a new ecoNET sensor entity."""
         self.entity_description = entity_description
@@ -61,6 +61,8 @@ class EconetSensor(EconetEntity, SensorEntity):
 
     def _sync_state(self, value) -> None:
         """Synchronize the state of the sensor entity."""
+        if isinstance(value, dict):
+            value = value.get("value")
         self._attr_native_value = self.entity_description.process_val(value)
         self.async_write_ha_state()
 
@@ -75,7 +77,7 @@ class MixerSensor(MixerEntity, EconetSensor):
         self,
         description: EconetSensorEntityDescription,
         coordinator: EconetDataCoordinator,
-        api: Econet300Api,
+        api: Econet300SOLApi,
         idx: int,
     ):
         """Initialize a new instance of the EconetSensor class."""
@@ -89,17 +91,18 @@ class LambdaSensors(LambdaEntity, EconetSensor):
         self,
         description: EconetSensorEntityDescription,
         coordinator: EconetDataCoordinator,
-        api: Econet300Api,
+        api: Econet300SOLApi,
     ):
         """Initialize a new instance of the EconetSensor class."""
         super().__init__(description, coordinator, api)
 
 
 def create_sensor_entity_description(key: str) -> EconetSensorEntityDescription:
-    """Create ecoNET300 sensor entity based on supplied key."""
+    """Create ecoNET300SOL sensor entity based on supplied key."""
     _LOGGER.debug("Creating sensor entity description for key: %s", key)
     entity_description = EconetSensorEntityDescription(
         key=key,
+        name=key,
         device_class=ENTITY_SENSOR_DEVICE_CLASS_MAP.get(key, None),
         entity_category=ENTITY_CATEGORY.get(key, None),
         translation_key=camel_to_snake(key),
@@ -114,7 +117,7 @@ def create_sensor_entity_description(key: str) -> EconetSensorEntityDescription:
 
 
 def create_controller_sensors(
-    coordinator: EconetDataCoordinator, api: Econet300Api
+    coordinator: EconetDataCoordinator, api: Econet300SOLApi
 ) -> list[EconetSensor]:
     """Create controller sensor entities."""
     entities: list[EconetSensor] = []
@@ -187,7 +190,7 @@ def create_mixer_sensor_entity_description(key: str) -> EconetSensorEntityDescri
 
 
 def create_mixer_sensors(
-    coordinator: EconetDataCoordinator, api: Econet300Api
+    coordinator: EconetDataCoordinator, api: Econet300SOLApi
 ) -> list[MixerSensor]:
     """Create individual sensor descriptions for mixer sensors."""
     entities: list[MixerSensor] = []
@@ -230,7 +233,7 @@ def create_lambda_sensor_entity_description(key: str) -> EconetSensorEntityDescr
     return entity_description
 
 
-def create_lambda_sensors(coordinator: EconetDataCoordinator, api: Econet300Api):
+def create_lambda_sensors(coordinator: EconetDataCoordinator, api: Econet300SOLApi):
     """Create controller sensor entities."""
     entities: list[LambdaSensors] = []
     sys_params = coordinator.data.get("sysParams", {})

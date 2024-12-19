@@ -16,7 +16,7 @@ PLATFORMS: list[Platform] = [Platform.SENSOR, Platform.BINARY_SENSOR, Platform.N
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
-    """Set up Econet300 Integration from a config entry."""
+    """Set up Econet300SOL Integration from a config entry."""
 
     hass.data.setdefault(DOMAIN, {})
 

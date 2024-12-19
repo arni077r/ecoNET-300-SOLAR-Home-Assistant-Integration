@@ -1,4 +1,4 @@
-"""Common code for econet300 integration."""
+"""Common code for econet300SOL integration."""
 
 import asyncio
 from datetime import timedelta
@@ -8,7 +8,7 @@ from aiohttp import ClientError
 from homeassistant.exceptions import ConfigEntryAuthFailed
 from homeassistant.helpers.update_coordinator import DataUpdateCoordinator, UpdateFailed
 
-from .api import ApiError, AuthError, Econet300Api
+from .api import ApiError, AuthError, Econet300SOLApi
 from .const import DOMAIN
 
 _LOGGER = logging.getLogger(__name__)
@@ -17,7 +17,7 @@ _LOGGER = logging.getLogger(__name__)
 class EconetDataCoordinator(DataUpdateCoordinator):
     """Econet data coordinator."""
 
-    def __init__(self, hass, api: Econet300Api):
+    def __init__(self, hass, api: Econet300SOLApi):
         """Initialize my coordinator."""
         super().__init__(
             hass,
@@ -60,7 +60,7 @@ class EconetDataCoordinator(DataUpdateCoordinator):
         try:
             # Note: asyncio.TimeoutError and aiohttp.ClientError are already
             # handled by the data update coordinator.
-            async with asyncio.timeout(10):
+            async with asyncio.timeout(100):
                 data = await self._api.fetch_sys_params()
                 reg_params = await self._api.fetch_reg_params()
                 params_edits = await self._api.fetch_param_edit_data()

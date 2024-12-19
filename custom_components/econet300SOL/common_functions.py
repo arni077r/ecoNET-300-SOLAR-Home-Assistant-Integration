@@ -1,4 +1,4 @@
-"""Functions used in Econet300 integration,."""
+"""Functions used in Econet300SOL integration,."""
 
 import re
 

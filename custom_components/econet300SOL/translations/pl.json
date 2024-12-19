@@ -55,6 +55,39 @@
       }
     },
     "sensor": {
+      "t1": {
+        "name": "Temperatura paneli solarnych"
+      },
+      "t2": {
+        "name": "Temperatura góry zbiornika"
+      },
+      "t3": {
+        "name": "Temperatura dołu zbiornika"
+      },
+      "t4": {
+        "name": "Temperatura Pieca"
+      },
+      "tsch__wy_": {
+        "name": "Temperatura wyłączenie schładzania"
+      },
+      "tsch__w_": {
+        "name": "temperatura załączenia schładzania"
+      },
+      "tryb_pracy": {
+        "name": "Tryb pracy",
+        "state": {
+          "1": "Automat",
+          "2": "Stop",
+          "3": "Urlop",
+          "unknown": "Nieznany"
+        }
+      },
+      "p1": {
+        "name": "Pompa solarów"
+      },
+      "p2": {
+        "name": "Pompa pieca"
+      },
       "boiler_power": {
         "name": "Moc kotła"
       },

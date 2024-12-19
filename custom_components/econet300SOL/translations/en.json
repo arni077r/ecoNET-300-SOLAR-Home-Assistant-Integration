@@ -23,6 +23,9 @@
       "lighter_works": {
         "name": "Lighter"
       },
+      "sch__nocne": {
+        "name": "Sch__nocne"
+      },
       "weather_control": {
         "name": "Weather control the boiler"
       },
@@ -64,6 +67,39 @@
       }
     },
     "sensor": {
+      "t1": {
+        "name": "Solar panel temperature"
+      },
+      "t2": {
+        "name": "Upper tank temperature"
+      },
+      "t3": {
+        "name": "Bottom tank temperature"
+      },
+      "t4": {
+        "name": "Fireplace temperature"
+      },
+      "tsch__wy_": {
+        "name": "Temperature cooling down shutoff"
+      },
+      "tsch__w_": {
+        "name": "Temperature cooling down turnon"
+      },
+      "tryb_pracy": {
+        "name": "Working Mode",
+        "state": {
+          "1": "Auto",
+          "2": "Stop",
+          "3": "Holiday",
+          "unknown": "Unknown"
+        }
+      },
+      "p1": {
+        "name": "Solar Pump"
+      },
+      "p2": {
+        "name": "Fireplace pump"
+      },
       "boiler_power": {
         "name": "Boiler output"
       },

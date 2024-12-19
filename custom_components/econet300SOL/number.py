@@ -1,4 +1,4 @@
-"""Base entity number for Econet300."""
+"""Base entity number for Econet300SOL."""
 
 from dataclasses import dataclass
 import logging
@@ -9,7 +9,7 @@ from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
 from .api import Limits
-from .common import Econet300Api, EconetDataCoordinator
+from .common import Econet300SOLApi, EconetDataCoordinator
 from .common_functions import camel_to_snake
 from .const import (
     DOMAIN,
@@ -42,7 +42,7 @@ class EconetNumber(EconetEntity, NumberEntity):
         self,
         entity_description: EconetNumberEntityDescription,
         coordinator: EconetDataCoordinator,
-        api: Econet300Api,
+        api: Econet300SOLApi,
     ):
         """Initialize a new ecoNET number entity."""
         self.entity_description = entity_description
@@ -69,8 +69,8 @@ class EconetNumber(EconetEntity, NumberEntity):
 
     def _set_value_limits(self, value):
         """Set native min and max values for the entity."""
-        self._attr_native_min_value = value.get("min")
-        self._attr_native_max_value = value.get("max")
+        self._attr_native_min_value = value.get("minv")
+        self._attr_native_max_value = value.get("maxv")
         _LOGGER.debug(
             "ecoNETNumber _set_value_limits: min=%s, max=%s",
             self._attr_native_min_value,
@@ -119,7 +119,7 @@ class EconetNumber(EconetEntity, NumberEntity):
             return
 
         if not await self.api.set_param(self.entity_description.key, int(value)):
-            _LOGGER.warning("Setting value failed")
+            _LOGGER.warning("Setting %s value failed %s",self.entity_description.key,value)
             return
 
         self._attr_native_value = value
@@ -146,11 +146,12 @@ def apply_limits(desc: EconetNumberEntityDescription, limits: Limits) -> None:
 
 
 def create_number_entity_description(key: str) -> EconetNumberEntityDescription:
-    """Create ecoNET300 number entity description."""
-    map_key = NUMBER_MAP.get(str(key), str(key))
+    """Create ecoNET300SOL number entity description."""
+    map_key = key
     _LOGGER.debug("Creating number entity for key: %s", map_key)
     return EconetNumberEntityDescription(
-        key=key,
+        key=map_key,
+        name=key,
         translation_key=camel_to_snake(map_key),
         icon=ENTITY_ICON.get(map_key),
         device_class=ENTITY_NUMBER_SENSOR_DEVICE_CLASS_MAP.get(map_key),
