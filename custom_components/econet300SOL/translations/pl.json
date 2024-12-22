@@ -58,10 +58,10 @@
       "t1": {
         "name": "Temperatura paneli solarnych"
       },
-      "t2": {
+      "t3": {
         "name": "Temperatura góry zbiornika"
       },
-      "t3": {
+      "t2": {
         "name": "Temperatura dołu zbiornika"
       },
       "t4": {
