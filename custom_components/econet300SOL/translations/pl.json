@@ -15,7 +15,7 @@
       "unknown": "Niespodziewany błąd"
     },
     "abort": {
-      "already_configured": "Urządzenie zostało już skonfigutowane"
+      "already_configured": "Urządzenie zostało już skonfigurowane"
     }
   },
   "entity": {
@@ -58,11 +58,11 @@
       "t1": {
         "name": "Temperatura paneli solarnych"
       },
-      "t3": {
-        "name": "Temperatura góry zbiornika"
-      },
       "t2": {
         "name": "Temperatura dołu zbiornika"
+      },
+      "t3": {
+        "name": "Temperatura góry zbiornika"
       },
       "t4": {
         "name": "Temperatura Pieca"
@@ -71,7 +71,16 @@
         "name": "Temperatura wyłączenie schładzania"
       },
       "tsch__w_": {
-        "name": "temperatura załączenia schładzania"
+        "name": "Temperatura załączenia schładzania"
+      },
+      "Tsch__kot_em_w_": {
+        "name": "Temperatura schładzania kotłem włączenie"
+      },
+      "Tsch__kot_em_wy_": {
+        "name": "Temperatura schładzania kotłem wyłączenie"
+      },
+      "Auto_sch__noc": {
+        "name": "Auto schładzanie nocne"
       },
       "tryb_pracy": {
         "name": "Tryb pracy",

@@ -179,6 +179,7 @@ def create_mixer_sensor_entity_description(key: str) -> EconetSensorEntityDescri
         key=key,
         translation_key=camel_to_snake(key),
         icon=ENTITY_ICON.get(key, None),
+        entity_category=ENTITY_CATEGORY.get(key, None),
         native_unit_of_measurement=ENTITY_UNIT_MAP.get(key, None),
         state_class=STATE_CLASS_MAP.get(key, SensorStateClass.MEASUREMENT),
         device_class=ENTITY_SENSOR_DEVICE_CLASS_MAP.get(key, None),

@@ -83,7 +83,13 @@
         "name": "Temperature cooling down turnon"
       },
       "tryb_pracy": {
-        "name": "working mode"
+        "name": "Working mode",
+        "state": {
+          "1": "Auto",
+          "2": "Stop",
+          "3": "Holiday",
+          "unknown": "Nieznany"
+        }
       },
       "p1": {
         "name": "Solar Pump"

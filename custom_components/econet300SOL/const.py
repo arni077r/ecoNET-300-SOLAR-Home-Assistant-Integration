@@ -64,6 +64,12 @@ OPERATION_MODE_NAMES = {
     13: "no_transmission",
 }
 
+TRYB_MODE_NAMES = {
+    1: "auto",
+    2: "stop",
+    3: "holiday",
+}
+
 ## Editable params limits
 API_EDIT_PARAM_URI = "newParam"
 API_EDITABLE_PARAMS_LIMITS_URI = "editParams"
@@ -91,7 +97,6 @@ SENSOR_MAP_KEY = {
         "ecoSterTemp1",
         "ecoSterTemp2",
         "Tryb_pracy",
-        "Sch__kot_em",
     },
     "lambda": {
         "lambdaStatus",
@@ -99,6 +104,7 @@ SENSOR_MAP_KEY = {
         "lambdaLevel",
     },
     "_default": {
+        "Uzysk_ca_kowity",
         "boilerPower",
         "boilerPowerKW",
         "P1",
@@ -109,6 +115,7 @@ SENSOR_MAP_KEY = {
         "T4",
         "Tryb_pracy",
         "TzCWU",
+        "Moc_chwilowa",
         "tempFeeder",
         "fuelLevel",
         "tempCO",
@@ -139,13 +146,6 @@ BINARY_SENSOR_MAP_KEY = {
     "_default": {
         "Sch__kot_em",
         "Sch__nocne",
-        "lighter",
-        "lighterWorks",
-        "pumpCOWorks",
-        "fanWorks",
-        "feederWorks",
-        "pumpFireplaceWorks",
-        "pumpCWUWorks",
         "mainSrv",
         "wifi",
         "lan",
@@ -158,13 +158,22 @@ NUMBER_MAP = {
     "P2":"P2",
     "Sch__kot_em":"Sch__kot_em",
     "Sch__nocne":"Sch__nocne",
-    "1280": "tempCOSet",
-    "1281": "tempCWUSet",
+    "Tsch__W_":"Tsch__W_",
+    "Tsch__WY_":"Tsch__WY_",
+    "T_aktyw_sch_":"T_aktyw_sch_",
+    "Tsch__kot_em_w_":"Tsch__kot_em_w_",
+    "Tsch__kot_em_wy_":"Tsch__kot_em_wy_",
+    "auto_scl_akt":"auto_scl_akt",
+    "Auto_sch__noc":"Auto_sch__noc",
 }
 
 # By default all sensors unit_of_measurement are None
 ENTITY_UNIT_MAP = {
     "T1": UnitOfTemperature.CELSIUS,
+    "T2": UnitOfTemperature.CELSIUS,
+    "T3": UnitOfTemperature.CELSIUS,
+    "T4": UnitOfTemperature.CELSIUS,
+    "P1":PERCENTAGE,
     "P2":PERCENTAGE,
     "tempCO": UnitOfTemperature.CELSIUS,
     "tempCOSet": UnitOfTemperature.CELSIUS,
@@ -217,6 +226,10 @@ ENTITY_SENSOR_DEVICE_CLASS_MAP: dict[str, SensorDeviceClass | None] = {
     #############################
     #          SENSORS
     #############################
+    "T1": SensorDeviceClass.TEMPERATURE,
+    "T2": SensorDeviceClass.TEMPERATURE,
+    "T3": SensorDeviceClass.TEMPERATURE,
+    "T4": SensorDeviceClass.TEMPERATURE,
     "tempFeeder": SensorDeviceClass.TEMPERATURE,
     "tempExternalSensor": SensorDeviceClass.TEMPERATURE,
     "tempCO": SensorDeviceClass.TEMPERATURE,
@@ -241,8 +254,9 @@ ENTITY_NUMBER_SENSOR_DEVICE_CLASS_MAP = {
     #############################
     #       NUMBER SENSORS
     #############################
-    "tempCOSet": NumberDeviceClass.TEMPERATURE,
     "P1": PERCENTAGE,
+    "P2": PERCENTAGE,
+    "tempCOSet": NumberDeviceClass.TEMPERATURE,
     "tempCWUSet": NumberDeviceClass.TEMPERATURE,
 }
 
@@ -259,6 +273,10 @@ ENTITY_BINARY_DEVICE_CLASS_MAP = {
 
 """Add only keys where precision more than 0 needed"""
 ENTITY_PRECISION = {
+    "T1": 1,
+    "T2": 1,
+    "T3": 1,
+    "T4": 1,
     "tempFeeder": 1,
     "tempExternalSensor": 1,
     "lambdaLevel": 1,
@@ -285,6 +303,12 @@ ENTITY_PRECISION = {
 }
 
 ENTITY_ICON = {
+    "T1": "mdi:thermometer",
+    "T2": "mdi:thermometer",
+    "T3": "mdi:thermometer",
+    "T4": "mdi:thermometer",
+    "P1": "mdi:pump",
+    "P2": "mdi:pump",
     "mode": "mdi:sync",
     "fanPower": "mdi:fan",
     "temCO": "mdi:thermometer-lines",
@@ -327,6 +351,8 @@ ENTITY_ICON = {
 }
 
 ENTITY_ICON_OFF = {
+    "P1": "mdi:pump-off",
+    "P2": "mdi:pump-off",
     "pumpCOWorks": "mdi:pump-off",
     "fanWorks": "mdi:fan-off",
     "additionalFeeder": "mdi:screw-lag",
@@ -342,6 +368,7 @@ NO_CWU_TEMP_SET_STATUS_CODE = 128
 
 ENTITY_VALUE_PROCESSOR = {
     "mode": lambda x: OPERATION_MODE_NAMES.get(x, STATE_UNKNOWN),
+    "Tryb_pracy": lambda x: TRYB_MODE_NAMES.get(x, STATE_UNKNOWN),
     "lambdaStatus": (
         lambda x: (
             "stop"
@@ -368,22 +395,36 @@ ENTITY_CATEGORY = {
     "mainSrv": EntityCategory.DIAGNOSTIC,
     "wifi": EntityCategory.DIAGNOSTIC,
     "lan": EntityCategory.DIAGNOSTIC,
+    "Sch__kot_em": EntityCategory.CONFIG,
+    "Sch__nocne": EntityCategory.CONFIG,
+    "Tsch__WY_": EntityCategory.CONFIG,
+    "Tsch__W_": EntityCategory.CONFIG,
+    "Tsch__kot_em_w_": EntityCategory.CONFIG,
+    "Tsch__kot_em_wy_": EntityCategory.CONFIG,
+    "auto_scl_akt": EntityCategory.CONFIG,
+    "T_aktyw_sch_": EntityCategory.CONFIG,
+    "Auto_sch__noc": EntityCategory.CONFIG,
 }
 
 ENTITY_MIN_VALUE = {
     "tempCOSet": 27,
     "tempCWUSet": 20,
-    "P1": 0,
 }
 
 ENTITY_MAX_VALUE = {
     "tempCOSet": 68,
     "tempCWUSet": 55,
-    "P1": 100,
+    "Sch__kot_em": 1,
+    "Sch__nocne": 1,
+    "auto_scl_akt": 1,
+    "T_aktyw_sch_": 1,
+    "Auto_sch__noc": 1,
 }
 
 ENTITY_STEP = {
     "tempCOSet": 1,
     "tempCWUSet": 1,
+    "Sch__kot_em":1,
     "P1": 10,
+    "P2": 100,
 }
