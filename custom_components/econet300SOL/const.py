@@ -78,7 +78,7 @@ API_EDITABLE_PARAMS_LIMITS_DATA = "data"
 ###################################
 #    NUMBER of AVAILABLE MIXERS
 ###################################
-AVAILABLE_NUMBER_OF_MIXERS = 6
+AVAILABLE_NUMBER_OF_MIXERS = 0
 MIXER_AVAILABILITY_KEY = "mixerTemp"
 MIXER_SET_AVAILABILITY_KEY = "mixerSetTemp"
 
@@ -116,36 +116,16 @@ SENSOR_MAP_KEY = {
         "Tryb_pracy",
         "TzCWU",
         "Moc_chwilowa",
-        "tempFeeder",
-        "fuelLevel",
-        "tempCO",
-        "tempCOSet",
-        "statusCWU",
-        "tempCWU",
-        "tempCWUSet",
-        "tempFlueGas",
-        "mode",
-        "fanPower",
-        "thermostat",
-        "tempExternalSensor",
-        "tempLowerBuffer",
-        "tempUpperBuffer",
         "quality",
         "signal",
         "softVer",
         "controllerID",
         "moduleASoftVer",
-        "moduleBSoftVer",
-        "moduleCSoftVer",
-        "moduleLambdaSoftVer",
-        "modulePanelSoftVer",
     },
 }
 
 BINARY_SENSOR_MAP_KEY = {
     "_default": {
-        "Sch__kot_em",
-        "Sch__nocne",
         "mainSrv",
         "wifi",
         "lan",
@@ -209,6 +189,7 @@ ENTITY_UNIT_MAP = {
 # By default all sensors state_class are MEASUREMENT
 STATE_CLASS_MAP: dict[str, SensorStateClass | None] = {
     "lambdaStatus": None,
+    "Tryb_pracy": None,
     "mode": None,
     "thermostat": None,
     "statusCWU": None,
@@ -248,6 +229,7 @@ ENTITY_SENSOR_DEVICE_CLASS_MAP: dict[str, SensorDeviceClass | None] = {
     "tempLowerBuffer": SensorDeviceClass.TEMPERATURE,
     "signal": SensorDeviceClass.SIGNAL_STRENGTH,
     "servoMixer1": SensorDeviceClass.ENUM,
+    "Tryb_pracy": SensorDeviceClass.ENUM,
 }
 
 ENTITY_NUMBER_SENSOR_DEVICE_CLASS_MAP = {
@@ -409,6 +391,7 @@ ENTITY_CATEGORY = {
 ENTITY_MIN_VALUE = {
     "tempCOSet": 27,
     "tempCWUSet": 20,
+    "Auto_sch__noc": 0,
 }
 
 ENTITY_MAX_VALUE = {
@@ -427,4 +410,5 @@ ENTITY_STEP = {
     "Sch__kot_em":1,
     "P1": 10,
     "P2": 100,
+    "Auto_sch__noc": 1,
 }

@@ -212,10 +212,10 @@ class Econet300SOLApi:
                 param,
             )
             return False
-        _LOGGER.warning("/econet/newParam?newParamName=%s&newParamValue=%s",param,value)
         data = await self._client.get(
             f"{self.host}/econet/newParam?newParamName={param}&newParamValue={value}"
         )
+        _LOGGER.debug("Requesting change of data: %s",data)
         if data is None or "result" not in data:
             return False
         if data["result"] != "OK":

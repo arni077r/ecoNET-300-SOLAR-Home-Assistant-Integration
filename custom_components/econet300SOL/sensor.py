@@ -151,7 +151,7 @@ def create_controller_sensors(
                 "Created and appended sensor entity from sysParams: %s", entity
             )
         else:
-            _LOGGER.warning(
+            _LOGGER.debug(
                 "Key: %s is not mapped in regParams or sysParams, sensor entity will not be added.",
                 data_key,
             )
