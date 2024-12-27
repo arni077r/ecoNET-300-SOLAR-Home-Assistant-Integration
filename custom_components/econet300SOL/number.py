@@ -14,6 +14,7 @@ from .common_functions import camel_to_snake
 from .const import (
     DOMAIN,
     ENTITY_ICON,
+    ENTITY_CATEGORY,
     ENTITY_MAX_VALUE,
     ENTITY_MIN_VALUE,
     ENTITY_NUMBER_SENSOR_DEVICE_CLASS_MAP,
@@ -156,6 +157,7 @@ def create_number_entity_description(key: str) -> EconetNumberEntityDescription:
         icon=ENTITY_ICON.get(map_key),
         device_class=ENTITY_NUMBER_SENSOR_DEVICE_CLASS_MAP.get(map_key),
         native_unit_of_measurement=ENTITY_UNIT_MAP.get(map_key),
+        entity_category=ENTITY_CATEGORY.get(map_key, None),
         min_value=ENTITY_MIN_VALUE.get(map_key),
         max_value=ENTITY_MAX_VALUE.get(map_key),
         native_step=ENTITY_STEP.get(map_key, 1),

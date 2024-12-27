@@ -71,10 +71,10 @@
         "name": "Solar panel temperature"
       },
       "t2": {
-        "name": "Upper tank temperature"
+        "name": "Bottom tank temperature"
       },
       "t3": {
-        "name": "Bottom tank temperature"
+        "name": "Upper tank temperature"
       },
       "t4": {
         "name": "Fireplace temperature"
